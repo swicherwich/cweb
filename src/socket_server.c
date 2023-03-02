@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../libs/logs.h"
+#include "libs/logs.h"
+#include "libs/server.h"
 
 #include <unistd.h>
 #include <netdb.h>
@@ -10,40 +11,18 @@
 #include <sys/socket.h>
 
 char* render_page();
-struct sockaddr_in init_server(const int port);
 
 int main(int argc, char** argv)
 {
-    int server_socket, client_socket;
-    struct sockaddr_in server;
+    int client_socket;
 
-    // creating socket
-    server_socket = socket(AF_INET, SOCK_STREAM, 0);
-    if (server_socket == -1)
-    {
-        log_error("Could not create socket.");
-        return 1;
-    }
-    log_info("Socket created");
-
-    server = init_server(8080);
-
-    // binding socket
-    if (bind(server_socket, (struct sockaddr*) &server, sizeof(server)) < 0)
-    {
-        log_error("Could not bind socket");
-        return 1;
-    }
-    log_info("Binding socket done");
-
-    // listening for incoming connections
-    listen(server_socket, 3);
-    log_info("Listening for incoming connections");
+   http_server http_server;
+   init_server(&http_server, 8080, 5);
 
     while (1)
     {
         log_info("Accepting client connection...");
-        client_socket = accept(server_socket, NULL, NULL);
+        client_socket = accept(http_server.socket, NULL, NULL);
 
         if (client_socket < 0)
         {
@@ -92,16 +71,6 @@ int main(int argc, char** argv)
     }
 
     return 0;
-}
-
-struct sockaddr_in init_server(const int port)
-{
-    struct sockaddr_in server; 
-    server.sin_family = AF_INET;
-    server.sin_addr.s_addr = INADDR_ANY;
-    server.sin_port = htons(port);
-
-    return server;
 }
 
 char* render_page() 

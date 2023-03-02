@@ -1,7 +1,5 @@
 #include <stdio.h>
-
-#define PREFIX_INFO "[INFO]"
-#define PREFIX_ERROR "[ERROR]"
+#include "libs/logs.h"
 
 void log_info(const char* msg)
 {
