@@ -6,7 +6,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-char* response(const char* html_file_name)
+char* render_html(const char* html_file_name);
+
+char* create_response(const char* html_file_name)
 {
     char* body = render_html(html_file_name);
 

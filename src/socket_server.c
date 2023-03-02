@@ -41,7 +41,7 @@ int main(int argc, char** argv)
 
         printf("Msg from client: %s\n", client_msg);
 
-        char* server_response = response("index.html");
+        char* server_response = create_response("index.html");
 
         log_info("Sending response");
         printf("%s", server_response);
