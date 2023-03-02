@@ -5,6 +5,7 @@
 #include "libs/logs.h"
 #include "libs/server.h"
 #include "libs/response.h"
+#include "libs/request.h"
 
 #include <unistd.h>
 #include <netdb.h>
@@ -40,6 +41,8 @@ int main(int argc, char** argv)
         }
 
         printf("Msg from client: %s\n", client_msg);
+
+        get_details(client_msg);
 
         char* server_response = create_response("index.html");
 

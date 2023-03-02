@@ -12,7 +12,6 @@ char* create_response(const char* html_file_name)
 {
     char* body = render_html(html_file_name);
 
-    printf("%s\n", body);
     char* response = (char*) malloc(strlen(HEADERS) + strlen(body));
 
     strcat(response, HEADERS);
