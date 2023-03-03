@@ -1,12 +1,33 @@
-#include <stdio.h>
 #include "libs/logs.h"
 
-void log_info(const char* msg)
+#include <stdio.h>
+#include <stdarg.h>
+
+
+void log_info(char* fmt, ...)
 {
-    printf("%s %s\n", PREFIX_INFO, msg);
+    char buf[100];
+
+    va_list vl;
+    va_start(vl, fmt);
+
+    vsnprintf(buf, sizeof(buf), fmt, vl);
+
+    va_end(vl);
+
+    printf("%s %s\n", PREFIX_INFO, buf);
 }
 
-void log_error(const char* msg)
+void log_error(char* fmt, ...)
 {
-    printf("%s %s\n", PREFIX_ERROR, msg);
+    char buf[100];
+
+    va_list vl;
+    va_start(vl, fmt);
+
+    vsnprintf(buf, sizeof(buf), fmt, vl);
+
+    va_end(vl);
+
+    printf("%s %s\n", PREFIX_ERROR, buf);
 }

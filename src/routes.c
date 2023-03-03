@@ -31,7 +31,7 @@ void route_bind(char* key, char* (*value)())
         curr->next = new_node;
     }
 
-    printf("%s Route [%s] added\n", PREFIX_INFO, key);
+    log_info("Route [%s] added", key);
 }
 
 // function to get the function for a given key
@@ -60,31 +60,3 @@ unsigned int hash(char* key)
     }
     return hash % TABLE_SIZE;
 }
-
-// sample functions to store in the map
-// void print_hello() {
-//     printf("Hello\n");
-// }
-
-// void print_world() {
-//     printf("World\n");
-// }
-
-// int main() {
-//     add("hello", print_hello);
-//     add("world", print_world);
-
-//     void (*func)();
-
-//     func = get("hello");
-//     if (func != NULL) {
-//         func();
-//     }
-
-//     func = get("world");
-//     if (func != NULL) {
-//         func();
-//     }
-
-//     return 0;
-// }

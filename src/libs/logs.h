@@ -3,8 +3,9 @@
 
 #define PREFIX_INFO "[INFO]"
 #define PREFIX_ERROR "[ERROR]"
+#define TIME_FORMAT "[]"
 
-void log_info(const char* msg);
-void log_error(const char* msg);
+void log_info(char* fmt, ...);
+void log_error(char* fmt, ...);
 
 #endif

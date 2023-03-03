@@ -30,7 +30,7 @@ char* render_html(const char* html_file_name)
     FILE *file = fopen(dir, "r");
 
     if (file == NULL) {
-        log_error("Unable to open static/index.html");
+        log_error("File static/%s does not exists", html_file_name);
         return NULL;
     }
 
@@ -41,7 +41,7 @@ char* render_html(const char* html_file_name)
     char* file_buff = (char*) malloc(file_size + 1);
 
     if (fread(file_buff, file_size, 1, file) < 0) {
-        log_error("Error reading file");
+        log_error("Error reading file %s", html_file_name);
     }
     log_info("Page is rendered");
 
