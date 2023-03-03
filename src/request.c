@@ -25,8 +25,8 @@ Request_details get_details(char* request_header)
         header_parse_counter++;
     }
 
-    printf("%s The method is %s\n", PREFIX_INFO, details.method);
-    printf("%s The route is %s\n", PREFIX_INFO, details.route);
+    log_info("The method is %s", details.method);
+    log_info("The route is %s", details.route);
 
     return details;
 }

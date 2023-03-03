@@ -33,7 +33,6 @@ int main(int argc, char** argv)
 
         if (client_socket < 0)
         {
-            printf("%d\n", client_socket);
             log_error("Could not accept connection");
             return 1;
         }
@@ -47,15 +46,15 @@ int main(int argc, char** argv)
             return 1;
         }
 
-        printf("Msg from client: %s\n", client_msg);
+        log_info("Msg from client: %s\n", client_msg);
 
         Request_details request_details = get_details(client_msg);
 
-        printf("%s Route: %s\n", PREFIX_INFO, request_details.route);
+        log_info("%s Route: %s\n", PREFIX_INFO, request_details.route);
 
         char* server_response = route_req(request_details.route);
 
-        printf("%s Server response:\n %s\n", PREFIX_INFO, server_response);
+        log_info("%s Server response:\n %s", PREFIX_INFO, server_response);
 
         log_info("Sending response");
 

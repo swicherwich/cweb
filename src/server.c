@@ -32,8 +32,8 @@ void init_server(http_server *server, int port, int queue)
     }
     log_info("Socket binded");
 
-    log_info("Listenning for connections...");
-    printf("%s Port: %d\n", PREFIX_INFO, port);
+    log_info("Listenning for connections on port: %d", port);
+
     listen(server_socket, queue);
 
 }
