@@ -6,18 +6,25 @@
 #include "libs/server.h"
 #include "libs/response.h"
 #include "libs/request.h"
+#include "libs/routes.h"
 
 #include <unistd.h>
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
+char* index();
+char* not_found();
+
 int main(int argc, char** argv)
 {
     int client_socket;
 
-   http_server http_server;
-   init_server(&http_server, 8080, 5);
+    http_server http_server;
+    init_server(&http_server, 8080, 5);
+
+    route_bind("/", index);
+    route_bind("/404", not_found);
 
     while (1)
     {
@@ -42,12 +49,16 @@ int main(int argc, char** argv)
 
         printf("Msg from client: %s\n", client_msg);
 
-        get_details(client_msg);
+        Request_details request_details = get_details(client_msg);
 
-        char* server_response = create_response("index.html");
+        printf("%s Route: %s\n", PREFIX_INFO, request_details.route);
+
+        char* server_response = route_req(request_details.route);
+
+        printf("%s Server response:\n %s\n", PREFIX_INFO, server_response);
 
         log_info("Sending response");
-        printf("%s", server_response);
+
         if (send(client_socket, server_response, strlen(server_response), 0) < 0)
         {
             log_error("Error sending message");
@@ -55,9 +66,19 @@ int main(int argc, char** argv)
         }
 
         log_info("Message sent");
-
+        
         close(client_socket);
     }
 
     return 0;
+}
+
+char* index()
+{
+    return create_response("index.html");
+}
+
+char* not_found()
+{
+    return create_response("404.html");
 }

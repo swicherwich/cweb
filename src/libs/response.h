@@ -3,6 +3,7 @@
 
 #define HEADERS "HTTP/1.0 200 OK\r\n\r\n"
 #define HTML_CONTENT_TYPE "Content-Type: text/html\r\n\r\n"
+#define JSON_CONTENT_TYPE "Content-Type: application/json\r\n\r\n"
 
 char* create_response(const char* html_file_name);
 
